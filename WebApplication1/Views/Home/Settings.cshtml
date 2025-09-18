@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Настройки чтения";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <style>
+        .light-theme {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .dark-theme {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="@(Context.Request.Cookies["theme"] == "dark" ? "dark-theme" : "light-theme")">
+
+    <div class="settings-container">
+        <h1>Настройки чтения</h1>
+
+        <form action="@Url.Action("SetTheme", "Blog")" method="post">
+            <label>
+                <input type="radio" name="theme" value="light" @(Context.Request.Cookies["theme"] != "dark" ? "checked" : "") />
+                Светлая тема
+            </label>
+            <br />
+            <label>
+                <input type="radio" name="theme" value="dark" @(Context.Request.Cookies["theme"] == "dark" ? "checked" : "") />
+                Темная тема
+            </label>
+            <br />
+            <button type="submit">Сохранить настройки</button>
+        </form>
+
+        <hr />
+        <a href="@Url.Action("Index", "Blog")">Назад к блогу</a>
+    </div>
+
+</body>
+</html>
